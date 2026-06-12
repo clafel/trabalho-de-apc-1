@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int main()
 {
@@ -39,9 +40,19 @@ int main()
                 system("clear");
                 if(quantidade >= 10) {
             printf("A quantidade de musicas cadastradas atingiu o limite. Tente remover alguma delas para continuar... \n");
-                    break;
+            printf("Pressione ENTER para tentar novamente...");
+            getchar();
+            break;
                 }
 
+            int i = 0;
+            int valido = 0;
+
+        do {
+
+            int repetido = 0;
+
+            system("clear");
             printf("Informe o titulo da musica: \n");
             scanf("%49[^\n]", &musicas[quantidade].nome_da_musica);
             while (getchar() != '\n');
@@ -50,9 +61,67 @@ int main()
             scanf("%49[^\n]", &musicas[quantidade].nome_do_artista);
             while (getchar() != '\n');
 
+            for (i = 0; i < quantidade; i++) {
+                if (
+                    strcmp(musicas[i].nome_da_musica,
+                    musicas[quantidade].nome_da_musica) == 0
+                    &&
+                    strcmp(musicas[i].nome_do_artista,
+                    musicas[quantidade].nome_do_artista) == 0
+                    )
+                {  
+                    repetido = 1;
+                    break;
+            }
+        }
+
+            if (repetido == 1) {
+
+                printf("Voce ja informou essa musica. Tente mudar o titulo ou o artista. \n\n");
+                printf("Pressione ENTER para tentar novamente...");
+                getchar();
+
+                valido = 0;
+            }
+            else
+            {
+                valido = 1;
+            }
+
+        }  while (valido == 0);
+
+        int valido_1 = 0;
+
+        do {
+
             printf("Informe o ID da musica: \n");
             scanf("%i", &musicas[quantidade].id_da_musica);
             while (getchar() != '\n');
+
+            int repetido_1 = 0;
+            int b = 0;
+
+            for (b = 0; b < quantidade; b++) {
+                if (musicas[b].id_da_musica == musicas[quantidade].id_da_musica) {
+                    repetido_1 = 1;
+                    break;
+                }
+            }
+
+            if (repetido_1 == 1) {
+
+                printf("Ja existe uma musica com esse ID. Tente usar outro. \n");
+                printf("Pressione ENTER para tentar novamente...");
+                getchar();
+
+                valido_1 = 0;
+            } else
+            {
+                valido_1 = 1;
+            }
+
+            }    while(valido_1 == 0);
+        
 
             printf("Informe o genero da musica: \n");
             scanf("%19[^\n]", &musicas[quantidade].genero_da_musica);
