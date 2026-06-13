@@ -111,7 +111,6 @@ int main()
             if (repetido_1 == 1) {
 
                 printf("Ja existe uma musica com esse ID. Tente usar outro. \n");
-                printf("Pressione ENTER para tentar novamente...");
                 getchar();
 
                 valido_1 = 0;
@@ -122,7 +121,6 @@ int main()
 
             }    while(valido_1 == 0);
         
-
             printf("Informe o genero da musica: \n");
             scanf("%19[^\n]", &musicas[quantidade].genero_da_musica);
             while (getchar() != '\n');
@@ -139,7 +137,27 @@ int main()
         case 2:
             {
             system("clear");
-            printf("Voce tem --- musicas cadastradas");
+
+            if (quantidade == 0)
+            {
+                printf("Nenhuma musica cadastrada. Tente novamente! \n");
+                break;
+            }
+
+            printf("Quantidade de musicas cadastradas: %d\n\n", quantidade);
+
+            for (int c = 0; c < quantidade; c++)
+            {
+                printf("=====================================\n");
+                printf("Musica %i\n\n", c + 1);
+                printf("=====================================\n");
+                printf("Titulo: %s\n", musicas[c].nome_da_musica);
+                printf("Artista: %s\n", musicas[c].nome_do_artista);
+                printf("Duracao: %.2f\n", musicas[c].duracao_da_musica);
+                printf("Genero: %s\n", musicas[c].genero_da_musica);
+                printf("ID: %i\n\n", musicas[c].id_da_musica);
+
+            }
             break;
             }
         case 3:
