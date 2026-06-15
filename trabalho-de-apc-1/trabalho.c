@@ -62,13 +62,7 @@ int main()
             while (getchar() != '\n');
 
             for (i = 0; i < quantidade; i++) {
-                if (
-                    strcmp(musicas[i].nome_da_musica,
-                    musicas[quantidade].nome_da_musica) == 0
-                    &&
-                    strcmp(musicas[i].nome_do_artista,
-                    musicas[quantidade].nome_do_artista) == 0
-                    )
+                if (strcmp(musicas[i].nome_da_musica, musicas[quantidade].nome_da_musica) == 0 && strcmp(musicas[i].nome_do_artista, musicas[quantidade].nome_do_artista) == 0)
                 {  
                     repetido = 1;
                     break;
@@ -91,43 +85,71 @@ int main()
         }  while (valido == 0);
 
         int valido_1 = 0;
+        int ler_inteiro = 0;
 
         do {
 
+            int repetido_1 = 0;
+
             printf("Informe o ID da musica: \n");
-            scanf("%i", &musicas[quantidade].id_da_musica);
+            ler_inteiro = scanf("%i", &musicas[quantidade].id_da_musica);
             while (getchar() != '\n');
 
-            int repetido_1 = 0;
-            int b = 0;
-
-            for (b = 0; b < quantidade; b++) {
-                if (musicas[b].id_da_musica == musicas[quantidade].id_da_musica) {
-                    repetido_1 = 1;
-                    break;
-                }
+            if (ler_inteiro != 1)
+            {
+                printf("Entrada invalida. Digite o ID com apenas numeros inteiros!\n");
+                printf("Pressione ENTER para tentar novamente...\n");
+                getchar();
+                valido_1 = 0;
             }
+            else
+            {
 
-            if (repetido_1 == 1) {
+                int b = 0;
 
-                printf("Ja existe uma musica com esse ID. Tente usar outro. \n");
+                for (b = 0; b < quantidade; b++) {
+                    if (musicas[b].id_da_musica == musicas[quantidade].id_da_musica) {
+                        repetido_1 = 1;
+                        break;
+                    }
+                }
+            
+
+                if (repetido_1 == 1) {
+
+                printf("Ja existe uma musica com esse ID. \n");
+                printf("Pressione ENTER para tentar novamente...\n");
                 getchar();
 
                 valido_1 = 0;
-            } else
+                }
+             else
             {
                 valido_1 = 1;
             }
-
+        }
             }    while(valido_1 == 0);
         
             printf("Informe o genero da musica: \n");
             scanf("%19[^\n]", &musicas[quantidade].genero_da_musica);
             while (getchar() != '\n');
 
+            int ler_float;
+
+            do {
             printf("Informe a duracao da musica: \n");
-            scanf("%f", &musicas[quantidade].duracao_da_musica);
+            ler_float = scanf("%f", &musicas[quantidade].duracao_da_musica);
             while (getchar() != '\n');
+
+            if (ler_float != 1)
+                {
+                    printf("Entrada invalida. Digite a duracao com apenas numeros flutuantes, sendo separados por um ponto!\n");
+                    printf("Pressione ENTER para tentar novamente...\n");
+                    getchar();
+                } 
+            }    while (ler_float != 1);
+
+
 
             quantidade++;
             printf("Musica cadastrada com sucesso! \n");
@@ -249,10 +271,39 @@ int main()
             }
         case 5:
             {
+            int id_remover = 0;
+            int encontrado = 0;
             system("clear");
-            printf("Digite o numero da musica que deseja remover: \n");
+
+            printf("Digite o ID da musica que voce deseja remover: \n");
+            scanf("%i", &id_remover);
+            while (getchar() != '\n');
+            
+            for (int i = 0; i < quantidade; i++)
+                {
+                    if(musicas[i].id_da_musica == id_remover)
+                        {
+                            encontrado = 1;
+
+                            for (int j = i; j < quantidade - 1; j++)
+                                {
+                                    musicas[j] = musicas[j + 1];
+                                }
+                            quantidade--;
+                            
+                            printf("Musica removida com sucesso!\n");
+                            break;
+                        }
+
+                }
+            
+            if (encontrado == 0)
+            {
+                printf("Nenhuma musica com esse ID foi encontrada. Tente novamente!\n");
+            }
             break;
             }
+            
         case 6:
             {
             system("clear");
