@@ -148,28 +148,103 @@ int main()
 
             for (int c = 0; c < quantidade; c++)
             {
-                printf("=====================================\n");
-                printf("Musica %i\n\n", c + 1);
-                printf("=====================================\n");
+                printf("======================================\n");
+                printf("Musica %i\n", c + 1);
+                printf("======================================\n");
                 printf("Titulo: %s\n", musicas[c].nome_da_musica);
                 printf("Artista: %s\n", musicas[c].nome_do_artista);
                 printf("Duracao: %.2f\n", musicas[c].duracao_da_musica);
                 printf("Genero: %s\n", musicas[c].genero_da_musica);
                 printf("ID: %i\n\n", musicas[c].id_da_musica);
-
             }
             break;
             }
         case 3:
             {
             system("clear");
-            printf("Digite o numero da musica que deseja buscar: \n");
+            if (quantidade == 0)
+                {
+                    printf("Nenhuma musica cadastrada. Tente novamente!\n");
+                    break;
+                }
+            int id_pra_buscar;
+            int encontrado = 0;
+            int c = 0;
+            printf("Digite o ID da musica: \n");
+            scanf("%i", &id_pra_buscar);
+            while(getchar() != '\n');
+
+            for(int c = 0; c < quantidade; c++)
+                {
+                if(musicas[c].id_da_musica == id_pra_buscar)
+                    {
+                        encontrado = 1;
+
+                        printf("\nMusica encontrada:\n\n");
+                        printf("Titulo: %s\n", musicas[c].nome_da_musica);
+                        printf("Artista: %s\n", musicas[c].nome_do_artista);
+                        printf("Duracao: %.2f\n", musicas[c].duracao_da_musica);
+                        printf("Genero: %s\n", musicas[c].genero_da_musica);
+                        printf("ID: %i\n\n", musicas[c].id_da_musica);
+
+                        break;
+                    }
+                }
+            if(encontrado == 0)
+                {
+                printf("Nenhuma musica encontrada com esse ID. Tente novamente!\n");
+                }
             break;
             }
         case 4:
             {
             system("clear");
-            printf("Digite o numero da musica que deseja atualizar: \n");
+
+            if (quantidade == 0)
+                {
+                    printf("Nenhuma musica cadastrada.\n");
+                    break;
+                }
+
+                int id_atualizar;
+                int encontrado = 0;
+
+                printf("Digite o ID da musica que deseja atualizar: ");
+                scanf("%i", &id_atualizar);
+                while(getchar() != '\n');
+
+                for (int i = 0; i < quantidade; i++)
+                {
+                    if(musicas[i].id_da_musica == id_atualizar)
+                        {
+                            encontrado = 1;
+
+                            printf("\nMusica encontrada!\n");
+
+                            printf("Informe o novo nome da musica: ");
+                            scanf("%49[^\n]", &musicas[i].nome_da_musica);
+                            while (getchar() != '\n');
+
+                            printf("Informe o novo nome do artista: ");
+                            scanf("%49[^\n]", &musicas[i].nome_do_artista);
+                            while (getchar() != '\n');
+
+                            printf("Informe a nova duracao da musica: ");
+                            scanf("%f", &musicas[i].duracao_da_musica);
+                            while (getchar() != '\n');
+
+                            printf("Informe o novo genero da musica: ");
+                            scanf("%19[^\n]", &musicas[i].genero_da_musica);
+                            while (getchar() != '\n');
+
+                            break;
+                        }
+                }
+            
+            if (encontrado == 0)
+            {
+                printf("Nenhuma musica encontrada com esse ID.\n");
+            }
             break;
             }
         case 5:
